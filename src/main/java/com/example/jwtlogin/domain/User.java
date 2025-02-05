@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -16,6 +18,8 @@ public class User {
     private String username;
     private String password;
     private RoleType role;
+    private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
 
     public static User from(UserEntity userEntity) {
         return User.builder()
@@ -23,6 +27,8 @@ public class User {
                 .username(userEntity.getUsername())
                 .password(userEntity.getPassword())
                 .role(userEntity.getRole())
+                .createdDate(userEntity.getCreatedDate())
+                .updateDate(userEntity.getUpdatedDate())
                 .build();
     }
 
