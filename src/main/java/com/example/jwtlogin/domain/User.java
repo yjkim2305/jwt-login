@@ -39,4 +39,11 @@ public class User {
                 .role(userJoinDto.role())
                 .build();
     }
+
+    public static User of(String username, RoleType role) {
+        return User.builder()
+                .username(username)
+                .role(role)
+                .build();
+    }
 }

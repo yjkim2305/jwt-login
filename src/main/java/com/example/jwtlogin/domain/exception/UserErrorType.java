@@ -5,7 +5,12 @@ import org.springframework.http.HttpStatus;
 
 public enum UserErrorType implements ErrorType {
 
-    ExistUserException(HttpStatus.OK, "이미 회원이 존재합니다");
+    ExistUserException(HttpStatus.OK, "이미 회원이 존재합니다"),
+    ExpireAccessToken(HttpStatus.UNAUTHORIZED, "access 토큰이 만료되었습니다."),
+    InvalidAccessToken(HttpStatus.UNAUTHORIZED, "적합하지 않은 access 토큰입니다.")
+    ;
+
+
 
     private final HttpStatus httpStatus;
     private final String message;
