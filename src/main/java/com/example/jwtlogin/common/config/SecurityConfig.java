@@ -1,6 +1,8 @@
 package com.example.jwtlogin.common.config;
 
+import com.example.jwtlogin.application.repository.RefreshTokenRepository;
 import com.example.jwtlogin.application.service.RefreshTokenService;
+import com.example.jwtlogin.common.jwt.filter.CustomLogoutFilter;
 import com.example.jwtlogin.common.jwt.filter.JwtFilter;
 import com.example.jwtlogin.common.jwt.filter.LoginFilter;
 import com.example.jwtlogin.common.jwt.util.JwtUtil;
@@ -26,6 +28,7 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtUtil jwtUtil;
     private final RefreshTokenService refreshTokenService;
+    private final RefreshTokenRepository refreshTokenRepository;
 
 
     @Bean
@@ -52,6 +55,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new JwtFilter(jwtUtil), LogoutFilter.class)
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshTokenService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshTokenRepository), LogoutFilter.class)
         ;
 
 
